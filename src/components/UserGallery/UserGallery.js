@@ -1,25 +1,24 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
-import ShelfInput from '../ShelfInput/ShelfInput';
 import GalleryItem from '../GalleryItem/GalleryItem';
 
-class ShelfItems extends Component {
+class UserGallery extends Component {
 
-  // States
-  state={
-    item:[]
+  state = {
+    item: []
   }
 
-  // Runs getImages when component mounts
-  componentDidMount(){
+  componentDidMount() {
     this.getImages();
   }
 
   // Gets images and sets it to item
   getImages =() => {
-    axios.get(`/api/shelf`)
+    const id = this.props.match.params.id;
+    axios.get(`/api/shelf/`+id)
     .then(response => {
+      console.log(response.data);
+      
       this.setState({item: response.data})
     })
     .catch( error => {
@@ -32,20 +31,18 @@ class ShelfItems extends Component {
       return <GalleryItem key={i} item={item} getImages={this.getImages}/>
     })
   }
-  
 
-  render(){
+  render() {
     return(
       <div>
-        <ShelfInput getImages={this.getImages} />
+        <h2>USER GALLERY</h2>
+        <p>{this.props.match.params.id}</p>
         <ul>
-          {JSON.stringify(this.props.id)}
           {this.renderGallery()}
         </ul>
       </div>
-    );
-  };
-};
+    )
+  }
+}
 
-const putReduxOnDom=(reduxState)=>({id: reduxState.user.id})
-export default connect(putReduxOnDom)(ShelfItems);
+export default UserGallery;

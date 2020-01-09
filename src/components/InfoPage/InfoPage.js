@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import ShelfInput from '../ShelfInput/ShelfInput';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -24,6 +25,7 @@ const InfoPage = () => {
     <p>
       Shelf Page
     </p>
+    <ShelfInput />
     <ul>
       {item.map(item => {
         return (<li key={item.id}><img src={item.image_url}/></li>)

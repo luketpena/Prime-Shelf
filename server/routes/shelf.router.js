@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  * Get all of the items on the shelf
  */
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM "item" ORDER BY "user_id"`).then(result => {
+    pool.query(`SELECT * FROM "item" ORDER BY "user_id", "id"`).then(result => {
         res.send(result.rows);
     })
     .catch( error => {
@@ -88,8 +88,14 @@ router.get('/count', (req, res) => {
 /**
  * Return a specific item by id
  */
-router.get('/:id', (req, res) => {
-
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  pool.query(`SELECT * FROM "item" WHERE "user_id" = $1;`,[req.params.id]).then(result => {
+      res.send(result.rows);
+  })
+  .catch( error => {
+      console.log('Error with GET all items', error);
+      res.sendStatus(500);
+  })
 });
 
 module.exports = router;

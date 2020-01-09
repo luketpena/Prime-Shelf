@@ -17,6 +17,7 @@ class ShelfInput extends Component {
     const newItem = {...this.state, user_id:this.props.user_id}
     Axios.post('/api/shelf', newItem)
     .then(response => {
+      this.props.getImages();
       this.setState({
         description: '',
         image_url: ''

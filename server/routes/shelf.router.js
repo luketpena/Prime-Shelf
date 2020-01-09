@@ -43,12 +43,13 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   const client = await pool.connect();
   try {
     const pictureUserID = await client.query(`SELECT "user_id" FROM "item" WHERE "id" = $1;`, [req.params.id])
-    if(req.user.id === pictureUserID.rows[0]){
+    if(req.user.id === pictureUserID.rows[0]['user_id']){
       await client.query(`BEGIN`)
       await client.query(`DELETE FROM "item" WHERE "id" = $1;`,[req.params.id])
       await client.query('COMMIT');
       res.sendStatus(200);
     }  
+    res.sendStatus(403);
   } catch (error) {
     client.query('ROLLBACK');
     console.log('error deleting', error)

@@ -8,7 +8,7 @@ class ShelfItems extends Component {
 
   // States
   state={
-    item:[]
+    item:[],
   }
 
   // Runs getImages when component mounts
@@ -17,7 +17,7 @@ class ShelfItems extends Component {
   }
 
   // Gets images and sets it to item
-  getImages =() => {
+  getImages = () => {
     axios.get(`/api/shelf`)
     .then(response => {
       this.setState({item: response.data})
@@ -32,14 +32,12 @@ class ShelfItems extends Component {
       return <GalleryItem key={i} item={item} getImages={this.getImages}/>
     })
   }
-  
 
   render(){
     return(
       <div>
         <ShelfInput getImages={this.getImages} />
         <ul>
-          {JSON.stringify(this.props.id)}
           {this.renderGallery()}
         </ul>
       </div>

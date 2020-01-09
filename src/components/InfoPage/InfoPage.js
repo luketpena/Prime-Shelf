@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 // This is one of our simplest components
@@ -6,24 +6,26 @@ import axios from 'axios';
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
 
-
 const InfoPage = () => {
-  function getItems(){
+
+  const [item, setItem] = useState([]);
+  useEffect(() => {
     axios.get(`/api/shelf`)
     .then(response => {
-      return(response.rows)
+      setItem(response.data)
     })
     .catch( error => {
       console.log('getItems error:', error);
     })
-  }
+  }, [])
+
   return(
     <div>
     <p>
       Shelf Page
     </p>
     <ul>
-      {getItems().map(item => {
+      {item.map(item => {
         return (<li key={item.id}><img src={item.image_url}/></li>)
       })}
     </ul>

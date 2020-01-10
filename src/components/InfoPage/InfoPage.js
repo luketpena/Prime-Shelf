@@ -11,7 +11,7 @@ class ShelfItems extends Component {
   }
 
   renderGallery () {
-    return this.state.item.map( (item,i) => {
+    return this.props.item.map( (item,i) => {
       return ( 
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
           <GalleryItem key={i} item={item} getImages={this.getImages}/>

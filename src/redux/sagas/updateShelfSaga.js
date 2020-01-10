@@ -11,7 +11,7 @@ function* updateShelf(action){
 }
 
 function* updateShelfSaga() {
-  yield takeLatest('UPDATE_ITEM', fetchUser);
+  yield takeLatest('UPDATE_ITEM', updateShelf);
 }
 
 export default updateShelfSaga;

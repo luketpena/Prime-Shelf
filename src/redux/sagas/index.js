@@ -6,6 +6,7 @@ import shelfSaga from './shelfSaga';
 import gallerySaga from './gallerySaga';
 import galleryidSaga from './galleryIdSaga';
 import deleteSaga from './deleteSaga';
+import updateShelfSaga from './updateShelfSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     gallerySaga(),
     galleryidSaga(),
     deleteSaga(),
+    updateShelfSaga(),
   ]);
 }

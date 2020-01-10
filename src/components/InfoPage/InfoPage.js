@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import ShelfInput from '../ShelfInput/ShelfInput';
 import GalleryItem from '../GalleryItem/GalleryItem';
+import { Grid } from '@material-ui/core';
 
 class ShelfItems extends Component {
 
@@ -10,8 +11,12 @@ class ShelfItems extends Component {
   }
 
   renderGallery () {
-    return this.props.item.map( (item,i) => {
-      return <GalleryItem key={i} item={item} />
+    return this.state.item.map( (item,i) => {
+      return ( 
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+          <GalleryItem key={i} item={item} getImages={this.getImages}/>
+        </Grid>
+      )
     })
   }
 
@@ -19,9 +24,14 @@ class ShelfItems extends Component {
     return(
       <div>
         <ShelfInput />
-        <ul>
+        <Grid 
+          container spacing={1} 
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+        >
           {this.renderGallery()}
-        </ul>
+        </Grid>
       </div>
     );
   };

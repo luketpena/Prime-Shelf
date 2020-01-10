@@ -1,6 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import {withStyles} from '@material-ui/core/styles';
+import {TextField, Button} from '@material-ui/core';
+
+const styles = theme => ({
+  submit: {
+    margin: "8px auto",
+    display: "block"
+  },
+  imageInput: {
+    width: "100%"
+  }
+})
+
 class ShelfInput extends Component {
 
   state = {
@@ -24,13 +37,15 @@ class ShelfInput extends Component {
   }
 
   render() {
+    const {classes} = this.props;
+
     return (
       <div>
         <h2>Add Shelf Item</h2>
         <form onSubmit={this.clickSubmit}>
-          <input required type="text" placeholder="Description" value={this.state.description} onChange={event=>this.handleChange(event,'description')}/>
-          <input required type="text" placeholder="Image URL" value={this.state.image_url} onChange={event=>this.handleChange(event,'image_url')}/>
-          <button>Submit</button>
+          <TextField className={classes.imageInput} label="Description" value={this.state.description} onChange={event=>this.handleChange(event,'description')}/>
+          <TextField className={classes.imageInput}label="Image URL" value={this.state.image_url} onChange={event=>this.handleChange(event,'image_url')}/>
+          <Button className={classes.submit} variant="contained" color="primary">Submit</Button>
         </form>
 
       </div>
@@ -42,4 +57,4 @@ const putStateOnProps = state => ({
   user: state.user,
 });
 
-export default connect(putStateOnProps)(ShelfInput);
+export default withStyles(styles)(connect(putStateOnProps)(ShelfInput));

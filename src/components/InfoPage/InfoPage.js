@@ -1,31 +1,13 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import ShelfInput from '../ShelfInput/ShelfInput';
 import GalleryItem from '../GalleryItem/GalleryItem';
 import { Grid } from '@material-ui/core';
 
 class ShelfItems extends Component {
 
-  // States
-  state={
-    item:[],
-  }
-
-  // Runs getImages when component mounts
   componentDidMount(){
-    this.getImages();
-  }
-
-  // Gets images and sets it to item
-  getImages = () => {
-    axios.get(`/api/shelf`)
-    .then(response => {
-      this.setState({item: response.data})
-    })
-    .catch( error => {
-      console.log('getItems error:', error);
-    })
+    this.props.dispatch({ type: 'GET_ITEM'})
   }
 
   renderGallery () {
@@ -41,7 +23,7 @@ class ShelfItems extends Component {
   render(){
     return(
       <div>
-        <ShelfInput getImages={this.getImages} />
+        <ShelfInput />
         <Grid 
           container spacing={1} 
           direction="row"
@@ -55,5 +37,5 @@ class ShelfItems extends Component {
   };
 };
 
-const putReduxOnDom=(reduxState)=>({id: reduxState.user.id})
+const putReduxOnDom=(reduxState)=>({id: reduxState.user.id, item: reduxState.shelfItem})
 export default connect(putReduxOnDom)(ShelfItems);

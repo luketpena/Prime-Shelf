@@ -40,15 +40,10 @@ class GalleryItem extends Component {
     image_url: ''
   }
 
-  // Checks that user owns the item and delets them if they do
-  deleting=(id,user, userID)=>{
+  // Checks that user owns the item and deletes them if they do
+  deleting=(id, user, userID)=>{
     if(userID===user){
-      axios.delete('/api/shelf/'+id)
-      .then(()=>{
-        this.props.getImages();
-      }).catch( error => {
-        console.log('delete error:', error);
-      })
+      this.props.dispatch({type: `DEL_ITEM`, payload: id})
     }else{
       alert("You cannot delete items that don't belong to you")
     }

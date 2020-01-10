@@ -2,6 +2,10 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
+import shelfSaga from './shelfSaga';
+import gallerySaga from './gallerySaga';
+import galleryidSaga from './galleryIdSaga';
+import deleteSaga from './deleteSaga';
 import updateShelfSaga from './updateShelfSaga';
 
 // rootSaga is the primary saga.
@@ -16,6 +20,10 @@ export default function* rootSaga() {
     loginSaga(),
     registrationSaga(),
     userSaga(),
+    shelfSaga(),
+    gallerySaga(),
+    galleryidSaga(),
+    deleteSaga(),
     updateShelfSaga(),
   ]);
 }

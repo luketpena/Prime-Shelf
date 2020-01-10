@@ -11,6 +11,10 @@ class ShelfInput extends Component {
   clickSubmit = (event)=> {
     event.preventDefault();
     this.props.dispatch({ type: 'SET_ITEM', payload: this.state})
+    this.setState({
+      description: '',
+      image_url: '',
+    })
   }
 
   handleChange = (event,target)=> {

@@ -16,7 +16,7 @@ class GalleryItem extends Component {
     if(userID===user){
       axios.delete('/api/shelf/'+id)
       .then(()=>{
-        this.props.getImages();
+        this.props.dispatch({ type: 'GET_ITEM'})
       }).catch( error => {
         console.log('delete error:', error);
       })
@@ -41,7 +41,6 @@ class GalleryItem extends Component {
     console.log('WHAT', this.state);
     axios.put('/api/shelf/' + id, newItem)
     .then(response => {
-      this.props.getImages();
       this.setState({
         description: '',
         image_url: '',

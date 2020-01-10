@@ -67,19 +67,18 @@ class GalleryItem extends Component {
   clickSubmit = (event, id)=> {
     event.preventDefault();
     const newItem = {description: this.state.description, image_url: this.state.image_url}
-    console.log('WHAT', this.state);
-    axios.put('/api/shelf/' + id, newItem)
-    .then(response => {
-      this.props.getImages();
-      this.setState({
-        description: '',
-        image_url: '',
-        image: false
-      })
-      console.log('sent new item', newItem);
-    }).catch(error => {
-      console.log('error sending new item', error);
+    this.props.dispatch({
+      type: 'UPDATE_ITEM', 
+      payload:{
+        id: id,
+        newItem: newItem
+      }
     });
+    this.setState({
+      description: '',
+      image_url: '',
+      image: false
+    })
   }
   
   handleChange = (event,target)=> {
